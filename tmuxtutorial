@@ -1,0 +1,67 @@
+Terminal multiplexers like tmux allow you to multiplex terminal window using panes and tabs so you can interact with multiple shell sessions. Also, it allows to detach a current terminal session and reattach at some point later in time.
+
+tmux expects you to know its keybindings, and they all have a form " {prefix} x " , where prefix by default is <C-b> and x is desired key
+note - see tmux.conf file to view current set prefix keybinding (<C-a>)
+
+    Sessions - a session is an independent workspace with one or more windows
+
+    1. tmux   =>   starts a new session
+    2. tmux new -s NAME   =>  starts a session with name
+    3. tmux ls     =>   lists the current sessions
+    4. within tmux typing  {prefix} d  => detaches current session
+    5. tmux a   => attaches the last session
+    6. tmux a -t SESSION_NAME     =>  attaches with session with name
+    7. tmux kill-server        => destroy all sessions and kill all process
+    -- {prefix} d  => detaches the current session
+
+    Windows - equivalent of tabs and editors on browsers, they visually seperate parts of the same session
+
+    1. {prefix} c    => creates a new window
+    <C-d>  - to close shells , and will ultimately close window if no shell is open .(remeber closing vim first and then run <C-d> in shell)
+i. to kill a window press - {prefix} q (original was {prefix} &, ...see tmux.conf)
+    2. {prefix} N    => will go to the nth window
+    3. {prefix} p    => will go to previous window
+    4. {prefix} n   => will go to next window
+    5. {prefix} ,   => rename the current window
+    6. {prefix} w   => list the current windows
+    7. {prefix} <C-h>   => move to windows on left
+    8. {prefix} <C-l>   => move to windows on right
+
+
+    Panes - like vim splits panes lets you have multiple shells in the same visual display
+    1. {prefix} -   => split the current pane horizontally (default was ") (tried using h but conflicts with pane movement )
+2. {prefix} v   => split the current pane vertically ( default was %)
+    3. {prefix} <direction>  => move to the pane in specified direction
+    **Note - in tmux.conf file tmux have been modified to behave like vim , so better use h,j,k,l keys
+    eg- {prefix} h,  {prefix} j..
+    ** note the difference that when traversing windows with direction we use ctrl key along with direction, like {prefix} <C-h> , but moving with panes we don't need the ctrl key with direction, like {prefix} h.  --see tmux.conf file for more info
+    4. {prefix} z   => toggle zoom for current pane
+    5. {prefix} <space>   => cycle through pane arrangements (panes arranges automatically in different directions)  - good in case we have many panes
+
+    Within tmux -
+{prefix} :    => go to command mode for tmux
+:rename-session
+:rename-window (also {prefix} , )
+:kill-session
+{prefix} s   => displays interactive sessions list
+{prefix} (   => switch to previous session
+        {prefix} )   => switch to next session
+*** Note -  reloading tmux environment => {prefix}<shift>i
+
+Summary :
+1.Sessions
+tmux (resurrect/continumm)  - {prefix} <c-s>  => save a session
+{prefix} <c-r>  => restore session
+VIm (vim-obsession)
+    to record a session -  :Obsess  /  :Obsess NAME
+    to load a session(from bash) -  vim -S / vim -S NAME
+    to delete a session    :Obsess!
+
+    2.Opening panes in vim
+    using nerdTree - s(vertical split) || i (horizontal split)
+using ctrlp   - <c-v>(vertical)  ||  <c-s> (horizontal)
+    3. zooming in panes
+    in vim - <c-w> | (maximize current window width)
+    <c-w> _  (maximize current window height)
+    <c-w> = ( split windows equally)
+in tmux -   {prefix} z   (toggles zoom )
