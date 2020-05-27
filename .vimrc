@@ -139,6 +139,9 @@ autocmd vimenter * colorscheme gruvbox
 set background=dark
 Plugin 'morhetz/gruvbox'   "gruvbox theme
 
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 Plugin 'tpope/vim-commentary'  " comments out with gcc toggle
 autocmd FileType apache setlocal commentstring=#\ %s    " this line for various language support(js, python ..)
 " All of your Plugins must be added before the following line
@@ -173,19 +176,31 @@ let g:ctrlp_working_path_mode = 'ra'"
 let g:buffergator_suppress_keymaps = 1
 nnoremap <Leader>b :BuffergatorToggle<CR>
 
+" below line is for airline-plugin to show buffer numbers on top along with name
+" let g:airline#extensions#tabline#buffer_nr_show = 1   " not working
+
+
 
 " syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 set statusline+=%{ObsessionStatus()}
 
-let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_always_populate_loc_list = 1  " this is removed to avoid a split window full of warnings
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" ------------ale
+" remove below line to show warning msgs also
+let g:syntastic_quiet_messages = {
+            \ "!level":  "errors",
+            \ "type":    "style",
+            \ "regex":   '.*',
+            \ "file:p":  '.*'}
+
+"-----------ale
+
 let g:ale_linters = {'python' : ['flake8', 'pydocstyle', 'bandit', 'mypy', 'autopep8']}
 " let g:ale_fixers = {'*': [], 'python':['black', 'isort']}
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace', 'add_blank_lines_for_python_control_statements', 'reorder-python-imports'], 'python': ['black', 'isort', 'autopep8', 'yapf']}

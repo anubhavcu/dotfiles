@@ -386,3 +386,13 @@ w - moves at begining of next word(excluding its first character)
                                                                           tmux-sensible
                                                                           tmux-resurrect
                                                                           tmux-continumm
+
+                                                                          *** Naviagting between vim tabs
+                                                                          :tabnew - opens a new tab
+                                                                          gt - go to next tab (:tabn)
+                                                                          gT - go to previous tab (:tabN)
+#gt - go to #th tab (:tabn #)
+                                                                          :tabr - go to first tab
+                                                                          :tabl - go to last tab
+                                                                          :tabm - move the current tab to last position
+                                                                          :tabm # - move the current tab to #th position
