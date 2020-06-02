@@ -110,7 +110,7 @@ Plug 'prettier/vim-prettier', {
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'	"shows changes in a git tracked files (lines added or deleted using +/- signs ) use - [c , ]c to move around changes
-
+Plug 'mattn/emmet-vim'		" support for abbreviations for html etc , see link - https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
