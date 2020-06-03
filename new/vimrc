@@ -2,7 +2,7 @@ set encoding=UTF-8
 
 let g:ale_fix_on_save = 1
 " --- basic config
-set updatetime=100	" default is 4000ms
+set updatetime=100      " default is 4000ms
 
 set nocompatible
 " Turn on syntax highlighting.
@@ -15,6 +15,11 @@ set relativenumber
 " Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 set showcmd
+
+set tabstop=8
+" set shiftwidth=4        "auto indentation"
+set expandtab   "converts tabs into spaces
+
 
 " The backspace key has slightly unintuitive behavior by default. For example,
 " by default, you can't backspace before the insertion point set with 'i'.
@@ -37,7 +42,7 @@ set smartcase
 
 " Enable searching as you type, rather than waiting till you press enter.
 set incsearch
-set hls		" highlight search
+set hls         " highlight search
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 
@@ -72,6 +77,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+"custom mapping for tab in normal mode - hit tab in normal mode will create a tab space and put you in insert mode
+nnoremap <Tab> <insert><tab>
+
+
+
+" mapping to move to new line from current line in insert mode
+" imap <S-CR> <ESC>o    " not working
 
 
 
@@ -96,7 +108,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'Chiel92/vim-autoformat'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-" Plug 'jiangmiao/auto-pairs'	" for auto brackets
+" Plug 'jiangmiao/auto-pairs'   " for auto brackets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-python'
 Plug 'leafgarland/typescript-vim'
@@ -104,13 +116,14 @@ Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'prettier/vim-prettier', {
-			\ 'do': 'yarn install',
-			\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-" Plug 'Xuyuanp/nerdtree-git-plugin'	" for detecting changes in files and show with symbols in nerdtree
+                        \ 'do': 'yarn install',
+                        \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+" Plug 'Xuyuanp/nerdtree-git-plugin'    " for detecting changes in files and show with symbols in nerdtree
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'	"shows changes in a git tracked files (lines added or deleted using +/- signs ) use - [c , ]c to move around changes
-Plug 'mattn/emmet-vim'		" support for abbreviations for html etc , see link - https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
+Plug 'airblade/vim-gitgutter'   "shows changes in a git tracked files (lines added or deleted using +/- signs ) use - [c , ]c to move around changes
+Plug 'mattn/emmet-vim'          " support for abbreviations for html etc , see link - https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -123,16 +136,16 @@ let g:indentLine_conceallevel=1
 
 " custom functions to highlight current opened file in nerdtree
 " function! IsNERDTreeOpen()
-"	return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+"       return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 " endfunction
 
 
 
 " function! SyncTree()
-"	if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-"		NERDTreeFind
-"		wincmd p
-"	endif
+"       if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+"               NERDTreeFind
+"               wincmd p
+"       endif
 " endfunction
 
 " highlight currently open buffer in nerdtree
@@ -142,13 +155,13 @@ let g:indentLine_conceallevel=1
 
 " coc config
 let g:coc_global_extensions = [
-			\ 'coc-snippets',
-			\ 'coc-pairs',
-			\ 'coc-eslint',
-			\ 'coc-tsserver',
-			\ 'coc-prettier',
-			\ 'coc-json',
-			\ ]
+                        \ 'coc-snippets',
+                        \ 'coc-pairs',
+                        \ 'coc-eslint',
+                        \ 'coc-prettier',
+                        \ 'coc-tsserver',
+                        \ 'coc-json',
+                        \ ]
 
 
 " Remap keys for gotos
@@ -161,7 +174,7 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <F2> <Plug>(coc-rename)
 
 " vim-autoformat
-au BufWrite * :Autoformat	" autoformat file on save
+au BufWrite * :Autoformat       " autoformat file on save
 nnoremap <F3> :Autoformat<CR>
 
 "gruvbox
@@ -177,7 +190,7 @@ let g:ctrlp_by_filename = 1
 let g:ctrlp_working_path_mode = 'ra'
 
 " vim commentary
-autocmd FileType apache setlocal commentstring=#\ %s	" for supporting multiple languages
+autocmd FileType apache setlocal commentstring=#\ %s    " for supporting multiple languages
 
 " vim obsession -adding to statusline
 set statusline+=%{ObsessionStatus()}
@@ -187,6 +200,8 @@ nnoremap <Leader>n : NERDTreeToggle<CR>
 nnoremap <Leader>f : NERDTreeFind<CR>
 " autocmd vimenter * NERDTree     " opens nerdtree automatically when vim startsup
 " let NERDTreeShowHidden=1    " allow nerdTree to show hidden files by default
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
 
 
 " buffergator
@@ -217,10 +232,10 @@ let g:syntastic_check_on_wq = 0
 
 " remove below line to show warning msgs also
 let g:syntastic_quiet_messages = {
-			\ "!level":  "errors",
-			\ "type":    "style",
-			\ "regex":   '.*',
-			\ "file:p":  '.*'}
+                        \ "!level":  "errors",
+                        \ "type":    "style",
+                        \ "regex":   '.*',
+                        \ "file:p":  '.*'}
 
 
 
