@@ -396,3 +396,11 @@ w - moves at begining of next word(excluding its first character)
                                                                           :tabl - go to last tab
                                                                           :tabm - move the current tab to last position
                                                                           :tabm # - move the current tab to #th position
+
+Note -- 
+" use 'eslint --init' //  or use 'eslint -D --init' to download it as a dev dependencies for normal html/css/js file to configure eslint(otherwise it will show some warning for each file ), also check proper versions and config settings for eslint so it recognizes es6 syntax
+
+for live server - download browser-sync with npm ( npm i -D browser-sync), here D stands for dev dependencies 
+then go to the directory of project and run - 
+       "browser-sync start --server --files ."
+       -- here dot(.) means to look for changes in all files of the project directory

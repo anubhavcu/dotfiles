@@ -73,7 +73,7 @@ case "$TERM" in
 esac
 
 # alias for browser-sync
-alias serve="browser-sync start --server --files "*" "
+alias serve="browser-sync start --server --files . "
 
 
 

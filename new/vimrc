@@ -16,7 +16,7 @@ set relativenumber
 set laststatus=2
 set showcmd
 
-set tabstop=8
+set tabstop=4
 " set shiftwidth=4        "auto indentation"
 set expandtab   "converts tabs into spaces
 
@@ -78,7 +78,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 "custom mapping for tab in normal mode - hit tab in normal mode will create a tab space and put you in insert mode
-nnoremap <Tab> <insert><tab>
+" nnoremap <Tab> <insert><tab>
 
 
 
@@ -157,12 +157,12 @@ let g:indentLine_conceallevel=1
 let g:coc_global_extensions = [
                         \ 'coc-snippets',
                         \ 'coc-pairs',
-                        \ 'coc-eslint',
                         \ 'coc-prettier',
                         \ 'coc-tsserver',
                         \ 'coc-json',
                         \ ]
 
+" \ 'coc-eslint',
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -174,8 +174,8 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <F2> <Plug>(coc-rename)
 
 " vim-autoformat
-au BufWrite * :Autoformat       " autoformat file on save
-nnoremap <F3> :Autoformat<CR>
+" au BufWrite * :Autoformat       " autoformat file on save
+" nnoremap <F3> :Autoformat<CR>
 
 "gruvbox
 autocmd vimenter * colorscheme gruvbox
