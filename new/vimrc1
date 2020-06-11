@@ -1,0 +1,308 @@
+au BufWrite * :Autoformat   " auto format files on save (install pep8 in terminal for python, for js install js-beautify )
+
+
+set encoding=UTF-8
+
+" set modifiable
+
+let g:ale_fix_on_save = 1
+" --- basic config
+" set updatetime=100      " default is 4000ms
+
+set nocompatible
+" Turn on syntax highlighting.
+syntax on
+let python_highlight_all=1  " highlighting python syntax
+" Disable the default Vim startup message.
+set shortmess+=I
+" Show line numbers.
+set number
+set relativenumber
+" Always show the status line at the bottom, even if you only have one window open.
+set laststatus=2
+set showcmd
+
+set tabstop=4
+" set shiftwidth=4        "auto indentation
+set expandtab   "converts tabs into spaces
+
+
+" The backspace key has slightly unintuitive behavior by default. For example,
+" by default, you can't backspace before the insertion point set with 'i'.
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
+
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+set hidden
+
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
+
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
+set hls         " highlight search
+" Unbind some useless/annoying default key bindings.
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
+" Enable mouse support. You should avoid relying on this too much, but it can
+" sometimes be convenient.
+set mouse+=a
+
+" to prevent bad habbits
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
+" ...and in insert mode
+inoremap <Left>  <ESC>:echoe "Use h"<CR>
+inoremap <Right> <ESC>:echoe "Use l"<CR>
+inoremap <Up>    <ESC>:echoe "Use k"<CR>
+inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+" just for opening a new window splid down/right
+set splitbelow
+set splitright
+
+"maps leader key to space (default was \)
+let mapleader = " "
+
+" switching between split windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" organize all swap files in one place , note - since swp files are not in same directory as of the file, it will not warn if a file is already open in other buffer
+set directory^=$HOME/.vim/tmp//
+
+
+" " for proper PEP 8 indentation in python programs
+" au BufNewFile,BufRead *.py
+"     \ set tabstop=4
+"     \ set softtabstop=4
+"     \ set shiftwidth=4
+"     \ set textwidth=79
+"     \ set expandtab
+"     \ set autoindent
+"     \ set fileformat=unix
+
+" " for js and web development files
+" au BufNewFile,BufRead *.js, *.html, *.css
+"     \ set tabstop=2
+"     \ set softtabstop=2
+"     \ set shiftwidth=2
+
+
+
+
+
+"custom mapping for tab in normal mode - hit tab in normal mode will create a tab space and put you in insert mode
+" nnoremap <Tab> <insert><tab>
+
+
+
+" mapping to move to new line from current line in insert mode
+" imap <S-CR> <ESC>o    " not working
+
+
+
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.vim/plugged')
+
+" Declare the list of plugins.
+Plug 'tpope/vim-sensible'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'davidhalter/jedi-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'jeetsukumaran/vim-buffergator'
+" Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-obsession'
+Plug 'vim-airline/vim-airline'
+Plug 'preservim/nerdtree'
+" Plug 'ycm-core/YouCompleteMe'
+Plug 'dense-analysis/ale'
+Plug 'vim-syntastic/syntastic'
+Plug 'Chiel92/vim-autoformat'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'jiangmiao/auto-pairs'   " for auto brackets
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-python'
+
+Plug 'leafgarland/typescript-vim'
+Plug 'Yggdroot/indentLine'
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
+Plug 'prettier/vim-prettier', {
+                        \ 'do': 'yarn install',
+                        \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'airblade/vim-gitgutter'   "shows changes in a git tracked files (lines added or deleted using +/- signs ) use - [c , ]c to move around changes
+Plug 'mattn/emmet-vim'          " support for abbreviations for html etc , see link - https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+
+" indentLine
+let g:indentLine_color_term = 239
+set conceallevel=1
+let g:indentLine_conceallevel=1
+
+
+" coc config
+let g:coc_global_extensions = [
+                        \ 'coc-snippets',
+                        \ 'coc-pairs',
+                        \ 'coc-prettier',
+                        \ 'coc-tsserver',
+                        \ 'coc-json',
+                        \ ]
+
+" \ 'coc-eslint',
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <F2> <Plug>(coc-rename)
+
+" vim-autoformat
+" au BufWrite * :Autoformat       " autoformat file on save
+" nnoremap <F3> :Autoformat<CR>
+
+" " jedi
+let g:jedi#show_call_signatures = 0
+let g:jedi#auto_vim_configuration = 0
+autocmd FileType python setlocal completeopt-=preview  " disabling popup while autocomplete
+
+
+
+
+
+
+
+"gruvbox
+autocmd vimenter * colorscheme gruvbox
+set background=dark
+let g:gruvbox_bold='1'
+let g:gruvbox_contrast_dark = 'hard'
+
+
+
+" ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+" searching by file name as opposed to full path( set 0 to put back in
+" default)
+let g:ctrlp_by_filename = 1
+let g:ctrlp_working_path_mode = 'ra'
+
+
+
+" fzf keybindings
+nnoremap <Leader>f :FZF<CR>
+let g:fzf_action = {
+                        \ 'ctrl-t': 'tab split',
+                        \ 'ctrl-i': 'split',
+                        \ 'ctrl-v': 'vsplit' }
+let g:fzf_preview_window = 'right:60%'
+
+
+" vim commentary
+autocmd FileType apache setlocal commentstring=#\ %s    " for supporting multiple languages
+
+" vim obsession -adding to statusline
+set statusline+=%{ObsessionStatus()}
+
+" nerdtree remap
+nnoremap <Leader>n : NERDTreeToggle<CR>
+" nnoremap <Leader>f : NERDTreeFind<CR>
+
+" automatically close the tab if the only remaining window in nerdtree
+" autocmd bufenter * if (winnr(“$”) == 1 && exists(“b:NERDTreeType”) && b:NERDTreeType == “primary”) | q | endif
+" automatically delete the buffer of file just deleted with nerdtree
+let NERDTreeAutoDeleteBuffer = 1
+
+" autocmd vimenter * NERDTree     " opens nerdtree automatically when vim startsup
+" let NERDTreeShowHidden=1    " allow nerdTree to show hidden files by default
+
+
+" buffergator
+let g:buffergator_suppress_keymaps = 1
+nnoremap <Leader>b :BuffergatorToggle<CR>
+
+" vim airlind - automatically display all bufeers when only one tab is open
+let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter =  'unique_tail_improved'
+let g:airline_section_y = 'BN: %{bufnr("%")}'
+
+" airline themes
+" let g:airline_theme='solarized'
+" let g:airline_solarized_bg='dark'
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+
+
+" syntastic
+" set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" remove below line to show warning msgs also
+let g:syntastic_quiet_messages = {
+                        \ "!level":  "errors",
+                        \ "type":    "style",
+                        \ "regex":   '.*',
+                        \ "file:p":  '.*'}
+
+
+
+"-----------ale
+
+let g:ale_linters = {'python' : ['flake8', 'pydocstyle', 'bandit', 'mypy', 'autopep8']}
+" let g:ale_fixers = {'*': [], 'python':['black', 'isort']}
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace', 'add_blank_lines_for_python_control_statements', 'reorder-python-imports'], 'python3': ['black', 'isort', 'autopep8', 'yapf']}
+let b:ale_fixers = {'javascript': ['prettier',]}
+
+" line to avoid eslint configuration for every file
+" g:ale_linters_ignore = {'javascript': ['eslint']}
+
+" Keep the sign gutter open at all times
+let g:ale_sign_column_always = 1
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
+
+" for running python code in current buffer
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+
+
+" to avoid comment when moving to new line with o/O from a commented line
+au FileType * set fo-=c fo-=r fo-=o
